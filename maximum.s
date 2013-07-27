@@ -1,3 +1,6 @@
+# Finds the largest in a set of numbers
+# Since it uses the 'exit code' to return the number, this can't be greater than 255
+# (see http://man7.org/linux/man-pages/man3/exit.3.html)
 
 .section .data
 
