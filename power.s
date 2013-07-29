@@ -1,4 +1,5 @@
 # Defines and calls an exponentiation function three times and returns the sum of the results
+.code32
 .section .data
 
 .section .text
@@ -28,7 +29,7 @@ addl $8, %esp
 # Retrieve the second result
 popl %ebx
 
-# Add the two together
+# addl the two together
 addl %eax, %ebx
 
 # Store result
@@ -43,7 +44,7 @@ addl $8, %esp
 # Retrieve the last result
 popl %ebx
 
-# Add all three
+# addl all three
 addl %eax, %ebx
 
 # Return this number as the exit code
@@ -59,31 +60,31 @@ power:
 # Initial bookkeeping
 pushl %ebp
 movl %esp, %ebp
-addl $4, %esp       # Use a local variable even though a register would've been enough
+subl $4, %esp       # Use a local variable even though a register would've been enough
 
 # Initialize registers used
 movl 8(%ebp), %ecx     # Exponent
 movl 12(%ebp), %ebx    # Base
 
 # Initialize result
-movl $1, 4(%ebp)
+movl $1, -4(%ebp)
 
 # Main loop (multiply until exponent reaches 0)
 start_loop:
 cmpl $0, %ecx
 je end_loop
 
-movl 4(%ebp), %eax
-imull %ebx, %eax
-movl %eax, 4(%ebp)
+movl -4(%ebp), %eax
+imul %ebx, %eax
+movl %eax, -4(%ebp)
 
-decl %ecx
+dec %ecx
 jmp start_loop
 
 end_loop:
 
 # Final bookkeeping (mostly reverse) 
-movl 4(%ebp), %eax       # Return value
+movl -4(%ebp), %eax       # Return value
 movl %ebp, %esp
 popl %ebp
 ret
