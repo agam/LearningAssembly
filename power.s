@@ -89,5 +89,9 @@ movl %ebp, %esp
 popl %ebp
 ret
 
-
+# To run,
+# as --32 --gstabs+ power.s -o power.o
+# ld -m elf_i386 power.o
+# ./a.out ; echo $?
+# ---> should print 25 (2^3 + 4^2 + 45^0)
 
