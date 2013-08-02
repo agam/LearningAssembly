@@ -78,7 +78,7 @@ int $SYSCALL
 
 # If no more data, then exit
 cmpl $EOF, %eax
-je end_read_file_loop
+jle end_read_file_loop
 
 # Call the conversion function
 pushl $BUFFER
@@ -138,13 +138,13 @@ movl %esp, %ebp
 
 # Get buffer location
 movl STACK_OFFSET_BUFFER(%ebp), %ebx
-movl STACK_OFFSET_BUFSIZE(%ebp), %ecx
+movl STACK_OFFSET_BUFSIZE(%ebp), %eax
 
 # Initialize loop variables
 movl $0, %edi
 
 convert_loop:
-cmpl %edi, %ecx
+cmpl %edi, %eax
 je end_convert_loop
 
 # Load given byte
